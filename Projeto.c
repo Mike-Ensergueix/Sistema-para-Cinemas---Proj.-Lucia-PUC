@@ -73,7 +73,7 @@ void menu(int sala[FILEIRAS][ASSENTOS])           //Criacao do menu recebendo pa
 
         escolha = -1;               //reset para evitar erros de opcao invalida
         scanf("%d", &escolha);      //escolha da opcao
-        while (getchar() != '\n' || getchar() != ' ');  //limpeza de characteres invalidos (evita loop infinito)
+        while (getchar() != '\n');  //limpeza de characteres invalidos (evita loop infinito)
 
         switch(escolha)
         {
