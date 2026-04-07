@@ -46,7 +46,7 @@ void menu()           //Criacao do menu
                 //funcao verificar fileiras
                 break;
             case 6:
-                printf("\n\t6. Mostrar estatisticas gerais");
+                printf("\n\t6. Mostrando estatisticas gerais");
                 //funcao mostrar estatisticas
                 break;
             case 0:
