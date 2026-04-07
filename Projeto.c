@@ -1,7 +1,8 @@
+//importacao das bibliotecas
 #include <stdio.h>
 #include <stdlib.h>
 
-void menu()           //Criacao do menu
+void menu()           //criacao do menu
 {
     int escolha = -1; //variavel para escolha
 
@@ -23,7 +24,7 @@ void menu()           //Criacao do menu
         scanf("%d", &escolha);      //escolha da opcao
         while (getchar() != '\n');  //limpeza de characteres invalidos (evita loop infinito)
 
-        switch(escolha)
+        switch(escolha)             //opcoes
         {
             case 1:
                 printf("\n\t1. Exibindo mapa da sala");
@@ -31,7 +32,7 @@ void menu()           //Criacao do menu
                 break;
             case 2:
                 printf("\n\t2. Venda de ingresso manual");
-                //funcao venda manaul
+                //funcao venda manual
                 break;
             case 3:
                 printf("\n\t3. Cancelando venda");
@@ -50,16 +51,16 @@ void menu()           //Criacao do menu
                 //funcao mostrar estatisticas
                 break;
             case 0:
-                printf("\n\tSaindo...");  //escolha = 0 encerra o programa
+                printf("\n\tSaindo...");  //escolha = 0 sai do menu
                 break;
             default:
                 printf("\n\tOpcao Invalida!"); //escolha != 0 a 6 opcao invalida
                 break;
         }
-    } while (escolha != 0);
+    } while (escolha != 0);    //sai da funcao
 }
 int main()
 {
     menu();   //chama o menu
-    return 0;
+    return 0; //encerra o programa
 }
