@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+//valores atribuidos por diretivas de pré-processador para facilitar substituicoes (por mais que ja sejam definidas no inicio desse projeto)
 #define FILEIRAS 10
 #define ASSENTOS 8
 
@@ -75,7 +76,7 @@ void menu(int sala[FILEIRAS][ASSENTOS])           //Criacao do menu recebendo pa
         scanf("%d", &escolha);      //escolha da opcao
         while (getchar() != '\n');  //limpeza de characteres invalidos (evita loop infinito)
 
-        switch(escolha)
+        switch(escolha)            //opcoes
         {
             case 1:
                 printf("\n\t1. Exibindo mapa da sala:\n");
@@ -84,7 +85,7 @@ void menu(int sala[FILEIRAS][ASSENTOS])           //Criacao do menu recebendo pa
                 break;
             case 2:
                 printf("\n\t2. Venda de ingresso manual\n");
-                //funcao venda manaul
+                //funcao venda manual
                 system("pause");  //pausa antes de voltar ao menu
                 break;
             case 3:
@@ -119,8 +120,8 @@ void menu(int sala[FILEIRAS][ASSENTOS])           //Criacao do menu recebendo pa
 }
 int main()
 {
-    int sala[FILEIRAS][ASSENTOS] = {0};  //cria matriz com todos os assentos disponiveis
+    int sala[FILEIRAS][ASSENTOS] = {0};  //cria a matriz da sala com todos os assentos disponiveis
 
-    menu(sala);   //chama o menu passando a matriz sala
+    menu(sala);   //chama o menu passando o parametro da matriz sala
     return 0; //encerra o programa
 }
