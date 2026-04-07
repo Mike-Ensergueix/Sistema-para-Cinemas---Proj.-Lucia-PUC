@@ -8,43 +8,60 @@
 
 void exibirMapa(int sala[FILEIRAS][ASSENTOS])   //imprime o MAPA recebendo paramentros da matriz sala
 {
-    //simulacao de alguns assentos ocupados para teste
-    sala[0][0] = sala[0][1] = sala[0][2] = sala[0][3] = sala[0][4] = sala[0][5]= 1;
-    sala[2][0] = sala[2][3] = 1;
+    printf("\n\t       ");                   //formatacao
 
-    printf("\n\t       ");                   //formataçao
     for (int j = 0; j < ASSENTOS; j++)       //loop imprime numeracao dos assentos
+    {
         printf("%d   ", j + 1);              //cabecalho das colunas
-    printf("\n");                            //formataçao
+    }
+
+    printf("\n");                            //formatacao
 
     for (int i = 0; i < FILEIRAS; i++)       //impressao da matriz por linha
     {
         int ocupados = 0;                        //inicializa contador de assentos ocupados
-        for (int j = 0; j < ASSENTOS; j++)       //percorrecao da linha
-            if (sala[i][j] == 1) ocupados++;     //faz a soma de assentos ocupados por *linha*
 
+        for (int j = 0; j < ASSENTOS; j++)       //percorrecao da linha
+        {
+            if (sala[i][j] == 1)             //soma de assentos ocupados por *linha*
+            {
+                ocupados++;                  //incremento
+            }                 
+        }
 
         if (i != FILEIRAS - 1)  //verifica ultima linha apenas para formataçao
         {
-            if (ocupados >= ASSENTOS * 0.75)   //verifica fileiras criticas (75% ocupado) e imprime numeracao das fileira (antes da matriz) 
-                printf("\t F%d*  ", i + 1);   //indica N* fileira crítica
+            if (ocupados >= ASSENTOS * 0.75)   //verifica fileiras criticas (75% ocupado) e imprime numeracao das fileira (antes da matriz)
+            {
+                printf("\t F%d*  ", i + 1);   //indica N* fileiras críticas
+            }
             else
-                printf("\t F%d   ", i + 1);   //indica N  fileira}
+            {
+                printf("\t F%d   ", i + 1);   //indica N  fileiras
+            }
         } 
         else                                 //mesmo processo de cima com -1 " ".
         {
             if (ocupados >= ASSENTOS * 0.75)  //verifica a ultima fileira e imprime sua numeracao (antes da linha da matriz) 
+            {
                 printf("\t F%d* ", i + 1);   //indica N* fileira crítica
+            }
             else
-                printf("\t F%d  ", i + 1);   //indica N  fileira}
+            {
+                printf("\t F%d  ", i + 1);   //indica N  fileira
+            }
         }
-
+    
         for (int j = 0; j < ASSENTOS; j++)  //percorrecao da linha
         {
             if (sala[i][j] == 0)  //verifica disponibilidade
+            {
                 printf("[ ] ");   //imprime disponivel
+            }
             else
+            {
                 printf("[X] ");   //imprime ocupado
+            }
         }
         printf("(%d/%d)\n", ocupados, ASSENTOS);  //(ocupados/8) contagem por fileira (depois da linha da matriz)
     }      //fim loop matriz
@@ -78,7 +95,7 @@ void menu(int sala[FILEIRAS][ASSENTOS])           //Criacao do menu recebendo pa
         {
             case 1:
                 printf("\n\t1. Exibindo mapa da sala:\n");
-                exibirMapa(sala); //chama funcao exibirMapa passando o paramentro da matriz sala
+                exibirMapa(sala); //chama funcao exibirMapa passando os paramentros da matriz sala
                 system("pause");  //pausa antes de voltar ao menu
                 break;
             case 2:
@@ -120,6 +137,11 @@ int main()
 {
     int sala[FILEIRAS][ASSENTOS] = {0};  //cria a matriz da sala com todos os assentos disponiveis
 
-    menu(sala);   //chama o menu passando o parametro da matriz sala
+    //simulacao de alguns assentos ocupados para teste
+    sala[0][0] = sala[0][1] = sala[0][2] = sala[0][3] = sala[0][4] = sala[0][5]= 1;
+    sala[1][0] = sala[1][1] = sala[1][2] = sala[1][3] = sala[1][4] = 1;
+    sala[2][0] = sala[2][3] = 1;
+
+    menu(sala);   //chama o menu passando os parametros da matriz sala
     return 0; //encerra o programa
 }
