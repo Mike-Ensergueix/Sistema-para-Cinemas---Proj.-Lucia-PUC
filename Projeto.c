@@ -9,7 +9,7 @@
 void exibirMapa(int sala[FILEIRAS][ASSENTOS])   //imprime o MAPA recebendo paramentros da matriz sala
 {
     //simulacao de alguns assentos ocupados para teste
-    sala[0][0] = sala[0][1] = sala[0][2] = sala[0][3] = sala[0][4] = 1;
+    sala[0][0] = sala[0][1] = sala[0][2] = sala[0][3] = sala[0][4] = sala[0][5]= 1;
     sala[2][0] = sala[2][3] = 1;
 
     int ocupados;        //contador de assentos ocupados
@@ -28,14 +28,14 @@ void exibirMapa(int sala[FILEIRAS][ASSENTOS])   //imprime o MAPA recebendo param
 
         if (i != 9)  //verifica ultima linha apenas para formataçao
         {
-            if (ocupados > ASSENTOS / 2)      //verifica fileiras criticas e imprime numeracao das fileira (antes da matriz) 
+            if (ocupados >= ASSENTOS * 0.75)   //verifica fileiras criticas (75% ocupado) e imprime numeracao das fileira (antes da matriz) 
                 printf("\t F%d*  ", i + 1);   //indica N* fileira crítica
             else
                 printf("\t F%d   ", i + 1);   //indica N  fileira}
         } 
         else                                 //mesmo processo de cima com -1 " ".
         {
-            if (ocupados > ASSENTOS / 2)     //verifica a ultima fileira e imprime sua numeracao (antes da linha da matriz) 
+            if (ocupados >= ASSENTOS * 0.75)  //verifica a ultima fileira e imprime sua numeracao (antes da linha da matriz) 
                 printf("\t F%d* ", i + 1);   //indica N* fileira crítica
             else
                 printf("\t F%d  ", i + 1);   //indica N  fileira}
