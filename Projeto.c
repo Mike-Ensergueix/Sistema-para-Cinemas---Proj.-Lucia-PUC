@@ -65,7 +65,7 @@ void exibirMapa(int sala[FILEIRAS][ASSENTOS])   //imprime o MAPA recebendo param
         }
         printf("(%d/%d)\n", ocupados, ASSENTOS);  //(ocupados/8) contagem por fileira (depois da linha da matriz)
     }      //fim loop matriz
-
+    printf("\n\t       ____________TELA_____________\n");               //imprime distancia da tela
     printf("\n\t [ ] Disponivel   [X] Ocupado   * Fileira critica\n");  //imprime significados
 }
 
