@@ -71,8 +71,9 @@ void exibirMapa(int sala[FILEIRAS][ASSENTOS])   //imprime o MAPA recebendo param
 
 void verificarFileiras(int sala[FILEIRAS][ASSENTOS])
 {
-    int fileirac = 0;
-    for (int i = 0; i < FILEIRAS; i++)       //percorre linha
+    int fileirac = 0, ocp = 0;
+
+    for (int i = 0; i < FILEIRAS; i++)       //percorre coluna
     {
         int ocupados = 0;                        //inicializa contador de assentos ocupados
 
@@ -82,15 +83,18 @@ void verificarFileiras(int sala[FILEIRAS][ASSENTOS])
             if (sala[i][j] == 1)             //soma de assentos ocupados por *linha*
             {
                 ocupados++;                  //incremento
+                ocp++;
             }
         }
 
-        if (ocupados >= ASSENTOS * 0.75)   //verifica fileiras criticas (75% ocupado)
+        if (ocupados >= ASSENTOS * 0.75)   //verifica fileiras criticas (75% ocupado) e imprime numeracao das fileira (antes da matriz)
             {
                 fileirac++;
+                printf("\t F%d*\n", i + 1);   //indica N* fileira crítica
             }
     }
     printf("\n\tFileiras Criticas Existentes = %d\n", fileirac);
+    printf("\n\tAssentos Disponiveis = %d\n", ((ASSENTOS*FILEIRAS)-ocp));
 }
 
 void menu(int sala[FILEIRAS][ASSENTOS])           //Criacao do menu recebendo paramentros da matriz sala
