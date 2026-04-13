@@ -69,6 +69,30 @@ void exibirMapa(int sala[FILEIRAS][ASSENTOS])   //imprime o MAPA recebendo param
     printf("\n\t [ ] Disponivel   [X] Ocupado   * Fileira critica\n");  //imprime significados
 }
 
+void verificarFileiras(int sala[FILEIRAS][ASSENTOS])
+{
+    int fileirac = 0;
+    for (int i = 0; i < FILEIRAS; i++)       //percorre linha
+    {
+        int ocupados = 0;                        //inicializa contador de assentos ocupados
+
+
+        for (int j = 0; j < ASSENTOS; j++)       //percorrecao da linha
+        {
+            if (sala[i][j] == 1)             //soma de assentos ocupados por *linha*
+            {
+                ocupados++;                  //incremento
+            }
+        }
+
+        if (ocupados >= ASSENTOS * 0.75)   //verifica fileiras criticas (75% ocupado)
+            {
+                fileirac++;
+            }
+    }
+    printf("\n\tFileiras Criticas Existentes = %d\n", fileirac);
+}
+
 void menu(int sala[FILEIRAS][ASSENTOS])           //Criacao do menu recebendo paramentros da matriz sala
 {
     int escolha = -1; //variavel para escolha
@@ -115,7 +139,7 @@ void menu(int sala[FILEIRAS][ASSENTOS])           //Criacao do menu recebendo pa
                 break;
             case 5:
                 printf("\n\t5. Verificando fileiras criticas\n");
-                //funcao verificar fileiras
+                verificarFileiras(sala);
                 system("pause");  //pausa antes de voltar ao menu
                 break;
             case 6:
