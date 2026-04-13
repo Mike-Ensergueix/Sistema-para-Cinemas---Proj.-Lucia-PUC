@@ -71,30 +71,30 @@ void exibirMapa(int sala[FILEIRAS][ASSENTOS])   //imprime o MAPA recebendo param
 
 void verificarFileiras(int sala[FILEIRAS][ASSENTOS])
 {
-    int fileirac = 0, ocp = 0;
+    int fileirac = 0, ocp = 0;      //inicia contador fileiras criticas e assentos ocupados total
 
-    for (int i = 0; i < FILEIRAS; i++)       //percorre coluna
+    for (int i = 0; i < FILEIRAS; i++)       //linha atual
     {
-        int ocupados = 0;                        //inicializa contador de assentos ocupados
+        int ocupados = 0;                        //inicia contador de assentos ocupados por linha
 
 
-        for (int j = 0; j < ASSENTOS; j++)       //percorrecao da linha
+        for (int j = 0; j < ASSENTOS; j++)       //percorre a linha
         {
             if (sala[i][j] == 1)             //soma de assentos ocupados por *linha*
             {
-                ocupados++;                  //incremento
-                ocp++;
+                ocupados++;                  //incremento ocupados por linha
+                ocp++;                       //incremento ocupados total
             }
         }
 
-        if (ocupados >= ASSENTOS * 0.75)   //verifica fileiras criticas (75% ocupado) e imprime numeracao das fileira (antes da matriz)
+        if (ocupados >= ASSENTOS * 0.75)   //verifica fileiras criticas (75% ocupado) e imprime numeracao das fileiras
             {
-                fileirac++;
+                fileirac++;                   //incremento fileira critica
                 printf("\t F%d*\n", i + 1);   //indica N* fileira crítica
             }
     }
-    printf("\n\tFileiras Criticas Existentes = %d\n", fileirac);
-    printf("\n\tAssentos Disponiveis = %d\n", ((ASSENTOS*FILEIRAS)-ocp));
+    printf("\n\tFileiras Criticas Existentes = %d\n", fileirac);            //print fileira criticas total
+    printf("\n\tAssentos Disponiveis = %d\n", ((ASSENTOS*FILEIRAS)-ocp));   //print fileiras disponiveis
 }
 
 void menu(int sala[FILEIRAS][ASSENTOS])           //Criacao do menu recebendo paramentros da matriz sala
