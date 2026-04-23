@@ -5,6 +5,7 @@
 //valores atribuidos por diretivas de pré-processador para facilitar substituicoes (por mais que ja sejam definidas no inicio desse projeto)
 #define FILEIRAS 10
 #define ASSENTOS 8
+#define TOTALASSENTOS 80
 
 void exibirMapa(int sala[FILEIRAS][ASSENTOS])   //imprime o MAPA recebendo paramentros da matriz sala
 {
@@ -26,7 +27,7 @@ void exibirMapa(int sala[FILEIRAS][ASSENTOS])   //imprime o MAPA recebendo param
             if (sala[i][j] == 1)             //soma de assentos ocupados por *linha*
             {
                 ocupados++;                  //incremento
-            }                 
+            }
         }
 
         if (i != FILEIRAS - 1)  //verifica ultima linha apenas para formataçao
@@ -39,10 +40,10 @@ void exibirMapa(int sala[FILEIRAS][ASSENTOS])   //imprime o MAPA recebendo param
             {
                 printf("\t F%d   ", i + 1);   //indica N  fileiras
             }
-        } 
+        }
         else                                 //mesmo processo de cima com -1 " ".
         {
-            if (ocupados >= ASSENTOS * 0.75)  //verifica a ultima fileira e imprime sua numeracao (antes da linha da matriz) 
+            if (ocupados >= ASSENTOS * 0.75)  //verifica a ultima fileira e imprime sua numeracao (antes da linha da matriz)
             {
                 printf("\t F%d* ", i + 1);   //indica N* fileira crítica
             }
@@ -51,7 +52,7 @@ void exibirMapa(int sala[FILEIRAS][ASSENTOS])   //imprime o MAPA recebendo param
                 printf("\t F%d  ", i + 1);   //indica N  fileira
             }
         }
-    
+
         for (int j = 0; j < ASSENTOS; j++)  //percorrecao da linha
         {
             if (sala[i][j] == 0)  //verifica disponibilidade
@@ -67,8 +68,81 @@ void exibirMapa(int sala[FILEIRAS][ASSENTOS])   //imprime o MAPA recebendo param
     }      //fim loop matriz
     printf("\n\t       ____________TELA_____________\n");               //imprime distancia da tela
     printf("\n\t [ ] Disponivel   [X] Ocupado   * Fileira critica\n");  //imprime significados
+    printf("\n\tDigite enter para continuar");
 }
 
+void menu(int sala[FILEIRAS][ASSENTOS])           //Criacao do menu recebendo paramentros da matriz sala
+{
+    int escolha = -1; //variavel para escolha
+
+    do
+    {
+    /*                   impressao do menu                         */
+        printf("\n\t-----Sistema de Controle de Assentos------");
+        printf("\n\t|  1. Exibir mapa da sala                |");
+        printf("\n\t|  2. Vender ingresso manualmente        |");
+        printf("\n\t|  3. Cancelar venda                     |");
+        printf("\n\t|  4. Sugerir melhor assento disponivel  |");
+        printf("\n\t|  5. Verificar fileiras criticas        |");
+        printf("\n\t|  6. Mostrar estatisticas gerais        |");
+        printf("\n\t|  0. Sair                               |");
+        printf("\n\t------------------------------------------");
+        printf("\n\n\tDigite para Escolher: ");
+
+        escolha = -1;               //reset para evitar erros de opcao invalida
+        scanf("%d", &escolha);      //escolha da opcao
+        system("cls");
+        while (getchar() != '\n');  //limpeza de characteres invalidos (evita loop infinito)
+
+        switch(escolha)            //opcoes
+        {
+            case 1:
+                printf("\n\t1. Exibindo mapa da sala:\n");
+                exibirMapa(sala); //chama funcao exibirMapa passando os paramentros da matriz sala
+                getchar();
+                system("cls");
+                break;
+            case 2:
+                printf("\n\t2. Venda de ingresso manual\n");
+                insereVenda(sala);//funcao venda manual
+                getchar();
+                getchar();
+                system("cls");
+                break;
+            case 3:
+                printf("\n\t3. Cancelando venda\n");
+                cancelaVenda(sala);
+                getchar();
+                getchar();
+                system("cls");
+                break;
+            case 4:
+                printf("\n\t4. Sugerindo melhor assento disponivel\n");
+                getchar();
+                system("cls");
+                break;
+            case 5:
+                printf("\n\t5. Verificando fileiras criticas\n");
+                verificarFileiras(sala);
+                getchar();
+                system("cls");
+                break;
+            case 6:
+                printf("\n\t6. Mostrando estatisticas gerais\n");
+                estatisticas(sala);//funcao mostrar estatisticas
+                getchar();
+                system("cls");
+                break;
+            case 0:
+                printf("\n\tSaindo...\n");  //escolha = 0 sai do menu
+                break;
+            default:
+                printf("\n\tOpcao Invalida!\n"); //escolha != 0 a 6 opcao invalida
+                system("pause");  //pausa antes de voltar ao menu
+                break;
+        }
+    } while (escolha != 0);    //sai da funcao
+}
 void verificarFileiras(int sala[FILEIRAS][ASSENTOS])
 {
     int fileirac = 0, ocp = 0;      //inicia contador fileiras criticas e assentos ocupados total
@@ -96,80 +170,89 @@ void verificarFileiras(int sala[FILEIRAS][ASSENTOS])
     printf("\n\tFileiras Criticas Existentes = %d\n", fileirac);            //print fileira criticas total
     printf("\n\tAssentos Disponiveis = %d\n", ((ASSENTOS*FILEIRAS)-ocp));   //print fileiras disponiveis
 }
-
-void menu(int sala[FILEIRAS][ASSENTOS])           //Criacao do menu recebendo paramentros da matriz sala
+void estatisticas(int sala[FILEIRAS][ASSENTOS])
 {
-    int escolha = -1; //variavel para escolha
+    int ocupados = 0, livres = 0, cont = 0, maior = 0, menor = 0, max_ocup = 0, min_ocup = ASSENTOS;
+    float percentual;
 
-    do
+
+    for(int i = 0; i < FILEIRAS; i++)
     {
-    /*                   impressao do menu                         */
-        printf("\n\t-----Sistema de Controle de Assentos------");
-        printf("\n\t|  1. Exibir mapa da sala                |");
-        printf("\n\t|  2. Vender ingresso manualmente        |");
-        printf("\n\t|  3. Cancelar venda                     |");
-        printf("\n\t|  4. Sugerir melhor assento disponivel  |");
-        printf("\n\t|  5. Verificar fileiras criticas        |");
-        printf("\n\t|  6. Mostrar estatisticas gerais        |");
-        printf("\n\t|  0. Sair                               |");
-        printf("\n\t------------------------------------------");
-        printf("\n\n\tDigite para Escolher: ");
+        cont = 0;
 
-        escolha = -1;               //reset para evitar erros de opcao invalida
-        scanf("%d", &escolha);      //escolha da opcao
-        while (getchar() != '\n');  //limpeza de characteres invalidos (evita loop infinito)
-
-        switch(escolha)            //opcoes
+        for(int j = 0; j < ASSENTOS; j++)
         {
-            case 1:
-                printf("\n\t1. Exibindo mapa da sala:\n");
-                exibirMapa(sala); //chama funcao exibirMapa passando os paramentros da matriz sala
-                system("pause");  //pausa antes de voltar ao menu
-                break;
-            case 2:
-                printf("\n\t2. Venda de ingresso manual\n");
-                //funcao venda manual
-                system("pause");  //pausa antes de voltar ao menu
-                break;
-            case 3:
-                printf("\n\t3. Cancelando venda\n");
-                //funcao cancelar venda
-                system("pause");  //pausa antes de voltar ao menu
-                break;
-            case 4:
-                printf("\n\t4. Sugerindo melhor assento disponivel\n");
-                //funcao sugerur melhor assento
-                system("pause");  //pausa antes de voltar ao menu
-                break;
-            case 5:
-                printf("\n\t5. Verificando fileiras criticas\n");
-                verificarFileiras(sala);
-                system("pause");  //pausa antes de voltar ao menu
-                break;
-            case 6:
-                printf("\n\t6. Mostrando estatisticas gerais\n");
-                //funcao mostrar estatisticas
-                system("pause");  //pausa antes de voltar ao menu
-                break;
-            case 0:
-                printf("\n\tSaindo...\n");  //escolha = 0 sai do menu
-                break;
-            default:
-                printf("\n\tOpcao Invalida!\n"); //escolha != 0 a 6 opcao invalida
-                system("pause");  //pausa antes de voltar ao menu
-                break;
+             if (sala[i][j] == 0)
+            {
+                livres++;
+            }
+            if(sala[i][j] == 1)
+            {
+                ocupados ++;
+                cont++;
+            }
         }
-    } while (escolha != 0);    //sai da funcao
+        if(cont > max_ocup)
+        {
+            max_ocup = cont;
+            maior = i + 1;
+        }
+        if(cont < min_ocup)
+        {
+            min_ocup = cont;
+            menor = i + 1;
+        }
+    }
+    percentual = ((float)ocupados / TOTALASSENTOS) * 100;
+    printf("\n\tTotal de assentos:          %d",TOTALASSENTOS);
+    printf("\n\tAssentos ocupados:          %d",ocupados);
+    printf("\n\tAssentos livres:            %d",livres);
+    printf("\n\tPercentual de ocupacao:     %.2f%%",percentual);
+    printf("\n\tFileira com maior ocupacao: %d",maior);
+    printf("\n\tFileira com menor ocupacao: %d",menor);
+    printf("\n\n\tPressione enter para continuar");
+
+}
+void insereVenda (int sala[FILEIRAS][ASSENTOS])
+{
+    int a, b;
+    printf("\n\tDigite a fileira (1 a 10):\t");
+    scanf("%d",&a);
+    printf("\n\tDigite o assento(1 a 8):\t");
+    scanf("%d",&b);
+    if(sala[a-1][b-1] == 0)
+    {
+        sala[a-1][b-1] = 1;
+        printf("\n\tVenda inserida com sucesso, digite enter para continuar.");
+    }
+    else
+    {
+        printf("\n\tAssento ocupado, digite enter para continuar.");
+    }
+}
+void cancelaVenda(int sala[FILEIRAS][ASSENTOS])
+{
+    int a, b;
+    printf("\n\tDigite a fileira (1 a 10):\t");
+    scanf("%d",&a);
+    printf("\n\tDigite o assento(1 a 8):\t");
+    scanf("%d",&b);
+    if(sala[a-1][b-1] == 1)
+    {
+        sala[a-1][b-1] = 0;
+        printf("\n\tVenda cancelada com sucesso, digite enter para continuar.");
+    }
+    else
+    {
+        printf("\n\tO assento nao esta ocupado, digite enter para continuar.");
+    }
 }
 int main()
 {
     int sala[FILEIRAS][ASSENTOS] = {0};  //cria a matriz da sala com todos os assentos disponiveis
 
-    //simulacao de alguns assentos ocupados para teste
-    sala[0][0] = sala[0][1] = sala[0][2] = sala[0][3] = sala[0][4] = sala[0][5]= 1;
-    sala[1][0] = sala[1][1] = sala[1][2] = sala[1][3] = sala[1][4] = 1;
-    sala[2][0] = sala[2][3] = 1;
 
     menu(sala);   //chama o menu passando os parametros da matriz sala
     return 0; //encerra o programa
 }
+
