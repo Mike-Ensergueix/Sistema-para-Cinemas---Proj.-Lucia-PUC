@@ -5,7 +5,7 @@
 //valores atribuidos por diretivas de pré-processador para facilitar substituicoes (por mais que ja sejam definidas no inicio desse projeto)
 #define FILEIRAS 10
 #define ASSENTOS 8
-#define TOTALASSENTOS 80
+#define TOTALASSENTOS (FILEIRAS*ASSENTOS)
 
 void exibirMapa(int sala[FILEIRAS][ASSENTOS])   //imprime o MAPA recebendo paramentros da matriz sala
 {
@@ -168,7 +168,7 @@ void verificarFileiras(int sala[FILEIRAS][ASSENTOS])
             }
     }
     printf("\n\tFileiras Criticas Existentes = %d\n", fileirac);            //print fileira criticas total
-    printf("\n\tAssentos Disponiveis = %d\n", ((ASSENTOS*FILEIRAS)-ocp));   //print fileiras disponiveis
+    printf("\n\tAssentos Disponiveis = %d\n", (TOTALASSENTOS-ocp));   //print fileiras disponiveis
 }
 void estatisticas(int sala[FILEIRAS][ASSENTOS])
 {
