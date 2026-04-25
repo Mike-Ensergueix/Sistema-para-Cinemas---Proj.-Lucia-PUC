@@ -129,7 +129,7 @@ void estatisticas(int sala[FILEIRAS][ASSENTOS])
         if(cont < min_ocup)
         {
             min_ocup = cont;
-            menor = i - 1;
+            menor = i + 1;
         }
     }
     percentual = ((float)ocupados / TOTALASSENTOS) * 100;
